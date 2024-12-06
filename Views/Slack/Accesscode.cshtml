@@ -1,0 +1,136 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+<link href="~/css/formediaquery.css" rel="stylesheet" />
+<link href="~/css/site.css" rel="stylesheet" />
+
+<!-- Inline JavaScript to set the default function -->
+<script type="text/javascript">
+
+    // Define the default function
+    function defaultFunction() {
+        var getHeadtab = document.getElementById('new-tab');
+
+        // Apply both styles using cssText
+        getHeadtab.style.cssText = 'background-color: #28a745; color: white; border-radius: 10px;';
+    }
+
+    // Call the function when the page loads
+    window.onload = function() {
+        defaultFunction();
+    }
+</script>
+
+<div class="container-fluid main-container">
+    <div class="row">
+        <!-- Left Column: Vacation Form -->
+        <div class="col-12 col-md-6">
+            <div class="tab-pane fade show active" id="recent" role="tabpanel" aria-labelledby="recent-tab">
+                <h2>Vacation Calendar</h2>
+                <h5>Choose your Out of Office Start and End Date & Time:</h5>
+                <form class="bg-light-custom p-3 rounded" asp-action="OAuthurl" method="post" id="vacationForm" onsubmit="return validateForm()">
+                    <div class="form-group">
+                        <label for="startDate">Start Date & Time:</label>
+                        <input type="datetime-local" id="startDate" name="startDate" class="form-control" required>
+                        <div id="startDateError" class="text-danger" style="display:none;">
+                            Please select a valid start date.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">End Date & Time:</label>
+                        <input type="datetime-local" id="endDate" name="endDate" class="form-control" required>
+                        <div id="endDateError" class="text-danger" style="display:none;">Please select a valid end date.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message (Optional):</label>
+                        <textarea id="message" name="message" rows="4" class="form-control"></textarea>
+                    </div>
+
+                    <!-- Applications Table with Logos -->
+                    <h5>Available Applications</h5>
+                    <h6>Publish my Out of Office to the following applications</h6>
+                    <!-- Add a responsive wrapper around the table -->
+                    <div class="table-responsive">
+
+                        <table class="table table-bordered text-center">
+                            <thead>
+                                <tr>
+                                    <th class="appTable" onclick="toggleSelection(this, 'Slack')">
+                                        <img src="~/images/app_IMGs/slack.png" alt="Slack" class="icon-image">
+                                    </th>
+                                    <th class="appTable" onclick="toggleSelection(this, 'Teams')">
+                                        <img src="~/images/app_IMGs/teams.png" alt="Teams" class="icon-image">
+                                    </th>
+                                    <th class="appTable" onclick="toggleSelection(this, 'Zoho')">
+                                        <img src="~/images/app_IMGs/zoho.png" alt="Zoho" class="icon-image">
+                                    </th>
+                                    <th class="appTable" onclick="toggleSelection(this, 'Outlook')">
+                                        <img src="~/images/app_IMGs/outlook.png" alt="Outlook" class="icon-image">
+                                    </th>
+                                    <th class="appTable" onclick="toggleSelection(this, 'SharePoint')">
+                                        <img src="~/images/app_IMGs/sharepoint.png" alt="SharePoint" class="icon-image">
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="app-status" data-app="slack">
+                                        Out Of Office Message will be published to Slack on your Out of Office day.
+                                        <br>
+                                        <button class="btn btn-outline-primary" onclick="setPreview('slack'); return false;">Preview</button>
+                                        <button class="btn btn-outline-primary" onclick="setConfig('slack'); return false;">Config</button>
+                                    </td>
+                                    <td class="app-status" data-app="teams">
+                                        Out Of Office Message will be published to Teams on your Out of Office day.
+                                        <br>
+                                        <button class="btn btn-outline-primary" onclick="setPreview('teams'); return false;">Preview</button>
+                                        <button class="btn btn-outline-primary" onclick="setConfig('teams'); return false;">Config</button>
+                                    </td>
+                                    <td class="app-status" data-app="zoho">
+                                        Out Of Office Message will be published to Zoho on your Out of Office day.
+                                        <br>
+                                        <button class="btn btn-outline-primary" onclick="setPreview('zoho'); return false;">Preview</button>
+                                        <button class="btn btn-outline-primary" onclick="setConfig('zoho'); return false;">Config</button>
+                                    </td>
+                                    <td class="app-status" data-app="outlook">
+                                        Out Of Office Message will be published to Outlook on your Out of Office day.
+                                        <br>
+                                        <button class="btn btn-outline-primary" onclick="setPreview('outlook'); return false;">Preview</button>
+                                        <button class="btn btn-outline-primary" onclick="setConfig('outlook'); return false;">Config</button>
+                                    </td>
+                                    <td class="app-status" data-app="sharepoint">
+                                        Out Of Office Message will be published to SharePoint on your Out of Office day.
+                                        <br>
+                                        <button class="btn btn-outline-primary" onclick="setPreview('sharepoint'); return false;">Preview</button>
+                                        <button class="btn btn-outline-primary" onclick="setConfig('sharepoint'); return false;">Config</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                    </div>
+
+                    <input type="hidden" id="selectedApps" name="Application" value="">
+
+                    <!-- Action Buttons -->
+                    <div class="form-group mt-3">
+                        <button type="submit" class="btn btn-primary mr-2">Publish</button>
+                        <button type="button" class="btn btn-secondary">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Right Column: Preview Section -->
+        <div class="col-12 col-md-6">
+            <h2 class="text-center">Preview</h2>
+            <div class="preview-section text-center">
+                <h3 id="previewDesc" class="preview-message">Your Out of Office message will be displayed here</h3>
+                <img id="previewImg" src="" alt="Select Application to preview" class="previewApp">
+            </div>
+        </div>
+
+    </div>
+</div>

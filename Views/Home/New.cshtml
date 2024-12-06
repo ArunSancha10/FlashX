@@ -1,0 +1,233 @@
+﻿@{
+    Layout = "_Layout";
+}
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+
+
+<link href="~/css/formediaquery.css" rel="stylesheet" />
+<link href="~/css/site.css" rel="stylesheet" />
+
+<!-- Inline JavaScript to set the default function -->
+<script type="text/javascript">
+
+    // Define the default function
+    function defaultFunction() {
+        var getHeadtab = document.getElementById('new-tab');
+
+        //alert("Slack_Logedin");
+        // If Slack is logged in, highlight the Slack image
+        var messageFromViewBag = '@ViewBag.SlackMessage';
+        //alert("messageFromViewBag : "+messageFromViewBag);
+        const url = window.location.search;
+
+        const urlParams = new URLSearchParams(url);
+        const slackLoggedIn = urlParams.get('signedin');
+
+        //var slackLoggedIn = "@(ViewData["Slack_Logedin"] ?? "false")" === "true";
+        //alert("slackLoggedIn: " + slackLoggedIn);
+
+        if (slackLoggedIn) {
+            document.getElementById('Signed_In').value = slackLoggedIn;
+            var slackCell = document.querySelector('th[onclick="toggleSelection(this, \'Slack\')"]');
+            //alert(slackCell);
+            if (slackCell) {
+                selectedApps.push("Slack");
+                document.getElementById('selectedApps').value = selectedApps.join(',');
+                slackCell.classList.add('highlighted'); // Add the highlight class to the Slack image
+            }
+            showWarningPopup();
+        }
+
+
+        // Apply both styles using cssText
+        getHeadtab.style.cssText = 'background-color: #d55401; color: white; border-radius: 10px;';
+    }
+
+    // Function to display the warning popup
+    function showWarningPopup() {
+        // Get the modal element
+        var modal = document.getElementById('alertMessage');
+
+        // Show the modal by changing its display style
+        modal.style.display = 'flex';
+
+
+
+    }
+
+    function CloseMsg() {
+        document.getElementById('alertMessage').style.display = "none";
+    }
+
+
+    // Call the function when the page loads
+    window.onload = function() {
+        defaultFunction();
+    }
+
+        function getRecentValues(){
+
+        var recentValueStored = @Html.Raw(ViewBag.Recent_Value_Stored ?? "null");
+        if (recentValueStored) {
+            console.log("Recent Value Stored:", recentValueStored);
+        } else {
+            console.log("Recent Value Stored is null or undefined");
+            recentValueStored = "";
+        }
+        return recentValueStored
+    }
+
+</script>
+
+<partial name="Index.cshtml" />
+<div style="display:none">@ViewBag.Recent_Value_Stored</div>
+ 
+<div class="container-fluid main-container">
+    <div class="row">
+        <!-- Left Column: Vacation Form -->
+        <div class="col-12 col-md-6">
+            <div class="tab-pane fade show active" id="recent" role="tabpanel" aria-labelledby="recent-tab">
+                <h2>Vacation Calendar</h2>
+                <h5>Choose your Out of Office Start and End Date & Time:</h5>
+                <form class="bg-light-custom p-3 rounded" asp-action="responseStatus" method="post" id="vacationForm" onsubmit="return validateForm('new')">
+                    <input type="text" id="myInput" value="new" name="mode" style="display: none;" />
+                    <div class="form-group">
+                        <label for="startDate">Start Date & Time:</label>
+                        <input type="datetime-local" id="startDate" name="startDate" class="form-control newStartDate" required onchange="handleDateChange()">
+                        <div id="startDateError" class="text-danger" style="display:none;">
+                            Please select a valid start date.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">End Date & Time:</label>
+                        <input type="datetime-local" id="endDate" name="endDate" class="form-control newEndDate" required onchange="handleDateChange()">
+                        <div id="endDateError" class="text-danger" style="display:none;">Please select a valid end date.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message:</label>
+                        <textarea id="message" name="message" rows="4" class="form-control newMessage"></textarea>
+                    </div>
+
+                    <!-- Applications Table with Logos -->
+                    <h5>Available Applications</h5>
+                    <h6>Publish my Out of Office to the following applications</h6>
+                    <!-- Add a responsive wrapper around the table -->
+                    <div class="table-responsive">
+
+                        <table class="table table-bordered text-center">
+                            <thead>
+                                <tr>
+                                    <th class="appTable" onclick="toggleSelection(this, 'Slack')">
+                                        <img src="~/images/app_IMGs/slack.png" alt="Slack" class="icon-image">
+                                    </th>
+                                    <th class="appTable" onclick="toggleSelection(this, 'Teams')">
+                                        <img src="~/images/app_IMGs/teams.png" alt="Teams" class="icon-image">
+                                    </th>
+                                    <th class="appTable" onclick="toggleSelection(this, 'Zoho')">
+                                        <img src="~/images/app_IMGs/zoho.png" alt="Zoho" class="icon-image">
+                                    </th>
+                                    <th class="appTable" onclick="toggleSelection(this, 'Outlook')">
+                                        <img src="~/images/app_IMGs/outlook.png" alt="Outlook" class="icon-image">
+                                    </th>
+                                    <th class="appTable" onclick="toggleSelection(this, 'SharePoint')">
+                                        <img src="~/images/app_IMGs/sharepoint.png" alt="SharePoint" class="icon-image">
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="app-status app-status-txt" data-app="slack">
+                                        Out Of Office Message will be published to Slack on your Out of Office day.
+                                    </td>
+                                    <td class="app-status app-status-txt" data-app="teams">
+                                        Out Of Office Message will be published to Teams on your Out of Office day.
+                                    </td>
+                                    <td class="app-status app-status-txt" data-app="zoho">
+                                        Time Off request will be published to Zoho immediately after you click [Publish].
+                                    </td>
+                                    <td class="app-status app-status-txt" data-app="outlook">
+                                        Out Of Office Message will be published to Outlook on your Out of Office day.
+                                    </td>
+                                    <td class="app-status app-status-txt" data-app="sharepoint">
+                                        Out Of Office Message will be published to SharePoint immediately after you click [Publish].
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="app-status" data-app="slack">
+                                        <button class="btn btn-primary btn-sm" onclick="setPreview('slack'); return false;">Preview</button>
+                                    </td>
+                                    <td class="app-status" data-app="teams">
+                                        <button class="btn btn-primary btn-sm" onclick="setPreview('teams'); return false;">Preview</button>
+                                    </td>
+                                    <td class="app-status" data-app="zoho">
+                                        <button class="btn btn-primary btn-sm" onclick="setPreview('zoho'); return false;">Preview</button>
+                                    </td>
+                                    <td class="app-status" data-app="outlook">
+                                        <button class="btn btn-primary btn-sm" onclick="setPreview('outlook'); return false;">Preview</button>
+                                    </td>
+                                    <td class="app-status" data-app="sharepoint">
+                                        <button class="btn btn-primary btn-sm" onclick="setPreview('sharepoint'); return false;">Preview</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+
+
+
+                    </div>
+
+                    <input type="hidden" id="selectedApps" name="Application" value="">
+                    <input type="hidden" id="Signed_In" name="sign_check" value="">
+                    <input type="hidden" id="slackOAuth_tok" name="slackOAuth" value="@ViewBag.SlackMessage">
+
+
+                    <!-- Action Buttons -->
+                    <div class="form-group mt-3">
+                        <button type="submit" class="btn btn-primary mr-2">Publish</button>
+                        <button type="button" class="btn btn-secondary" onclick="window.location.href='@Url.Action("Recent", "Home")'">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Right Column: Preview Section -->
+        <div class="col-12 col-md-6">
+            <h2 class="text-center">Preview</h2>
+            <div class="preview-section text-center">
+                <h3 id="previewDesc" class="preview-message">Your Out of Office message will be displayed here</h3>
+                <div id="previewhtml" class="container"></div>
+                <div id="app" class="container"></div>
+            </div>
+        </div>
+
+        <!-- Warning popup -->
+        <div id="alertMessage" style="display: none; position: fixed; top: 10px; left: 50%; transform: translateX(-50%); background-color: #ffff99; color: black; padding: 10px; border-radius: 5px; width: 400px; z-index: 1000;">
+            <span style="font-weight: bold;"></span>  Slack logedin. Please select the slack details 
+            <span id="closeIcon" style="position: absolute; top: 5px; right: 7px; cursor: pointer; font-size: 20px;" onclick="CloseMsg()">&times;</span>
+        </div>
+
+
+    </div>
+</div>
+
+<!-- Modal Structure -->
+<div class="modal fade" id="myDynamicModal" tabindex="-1" aria-labelledby="myDynamicModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myDynamicModalLabel">Default Title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Default content goes here.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Save Changes</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        /* General styles for the table container */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        #ShareoutTable {
+            min-width: 1200px;
+        }
+
+            /* Style for table header */
+            #ShareoutTable thead th,
+            #ShareoutTable tbody td {
+                text-align: center;
+            }
+
+            /* Styling for the table header */
+            #ShareoutTable thead th {
+                position: sticky;
+                top: 0;
+                background-color: #f8f9fa;
+                z-index: 1;
+            }
+
+                /* Sticky first column */
+                #ShareoutTable tbody td:first-child,
+                #ShareoutTable thead th:first-child {
+                    position: sticky;
+                    left: 0;
+                    background-color: #f8f9fa;
+                    z-index: 2;
+                }
+
+            /* Styling for textareas */
+            #ShareoutTable textarea {
+                width: 100%;
+                height: 100%;
+                resize: none;
+                border: none;
+                padding: 5px;
+                overflow: hidden; /* Prevent unnecessary scrollbars */
+                box-sizing: border-box; /* Include padding in width/height */
+            }
+
+            #ShareoutTable tbody tr:nth-child(1) textarea {
+                height: 80px; /* Increased height for the first row */
+            }
+
+            /* Specific styles for the textareas in ShareoutTable */
+            #ShareoutTable textarea {
+                background-color: #f1f1f1; /* Light background color for textareas */
+                font-family: 'Courier New', monospace; /* Monospace font for better readability */
+            }
+
+            #ShareoutTable thead th {
+                background-color: #007bff; /* Blue background for the table header */
+                color: white; /* White text color in header */
+            }
+
+            #ShareoutTable tbody tr:nth-child(odd) {
+                background-color: #f9f9f9; /* Light gray for odd rows */
+            }
+
+            #ShareoutTable tbody tr:nth-child(even) {
+                background-color: #ffffff; /* White background for even rows */
+            }
+
+            /* Additional styles for readonly textareas in the first column */
+            #ShareoutTable td textarea[readonly] {
+                background-color: #e9ecef; /* Light gray for readonly textareas */
+                color: #6c757d; /* Darker text color for readonly textareas */
+                font-style: italic;
+            }
+
+            /* Increase the width of the first cell in the first row */
+            #ShareoutTable tbody tr:first-child td:first-child {
+                width: 150px; /* Increased width for the first cell */
+            }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h3 class="text-center">Table with Textarea Cells</h3>
+        <div class="table-container">
+            <table id="ShareoutTable" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Employee Name</th>
+                        <th>January</th>
+                        <th>February</th>
+                        <th>March</th>
+                        <th>April</th>
+                        <th>May</th>
+                        <th>June</th>
+                        <th>July</th>
+                        <th>August</th>
+                        <th>September</th>
+                        <th>October</th>
+                        <th>November</th>
+                        <th>December</th>
+                   
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- First row -->
+                    <tr>
+                        <td><textarea readonly>1</textarea></td>
+                        <td><textarea></textarea></td>
+                        <td><textarea></textarea></td>
+                        <td><textarea></textarea></td>
+                        <td><textarea></textarea></td>
+                        <td><textarea></textarea></td>
+                        <td><textarea></textarea></td>
+                        <td><textarea></textarea></td>
+                        <td><textarea></textarea></td>
+                        <td><textarea></textarea></td>
+                        <td><textarea></textarea></td>
+                        <td><textarea></textarea></td>
+                        <td><textarea></textarea></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

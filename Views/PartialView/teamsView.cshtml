@@ -1,0 +1,115 @@
+﻿<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow-lg" style="max-width: 500px; width: 100%; min-height: 650px;">
+        <div class="card-body">
+            <!-- Row 1: Icon and Heading -->
+            <div class="row mb-3" style="border-bottom: 1px solid rgba(0, 0, 0, 0.1); padding-bottom: 10px;">
+                <div class="col-2 text-center">
+                    <img src="/images/app_IMGs/teams.png" alt="Slack Logo" style="width: 80px; height: auto;">
+                </div>
+                <div class="col-10 mb-5">
+                    <h2 class="text-center">Update Teams Presence Settings</h2>
+                </div>
+            </div>
+
+            <!-- Row 2: Teams Presence and Status Message -->
+            <div class="row mb-3" style="border-bottom: 1px solid rgba(0, 0, 0, 0.1); padding-bottom: 10px;">
+                <div class="col-md-6">
+                    <label for="teamsPresence" class="form-label text-start">Teams Presence</label>
+                    <select id="teamsPresence" name="teamsPresence" class="form-select custom-input teams-custom-input" required>
+                        <option value="">Select Presence</option>
+                        <option value="Available" class="status-option">&#x1F7E2; Available</option>
+                        <option value="Busy" class="status-option">&#x1F534; Busy</option>
+                        <option value="DoNotDisturb" class="status-option">&#x1F6AB; Do Not Disturb</option>
+                        <option value="Away" class="status-option">&#x23F3; Away</option>
+                        <option value="BeRightBack" class="status-option">&#x23F0; Be Right Back</option>
+                        <option value="Offline" class="status-option">&#x26AB; Offline</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="statusMessage" class="form-label text-start">Status Message</label>
+                    <input type="text" id="statusMessage" class="form-control custom-input teams-custom-input" placeholder="Status Message...">
+                </div>
+            </div>
+
+            <!-- Row 3: Expire Duration -->
+            <div class="row mb-3" style="border-bottom: 1px solid rgba(0, 0, 0, 0.1); padding-bottom: 10px;">
+                <div class="col-12">
+                    <label for="expireDuration" class="form-label text-start">Expire Duration</label>
+                    <select id="expireDuration" name="expireDuration" class="form-select custom-input teams-custom-input" required>
+                        <option value="">Select Expiration</option>
+                        <option value="5" data-unit="minutes">5 minutes</option>
+                        <option value="10" data-unit="minutes">10 minutes</option>
+                        <option value="15" data-unit="minutes">15 minutes</option>
+                        <option value="30" data-unit="minutes">30 minutes</option>
+                        <option value="60" data-unit="hours">1 hour</option>
+                        <option value="120" data-unit="hours">2 hours</option>
+                        <option value="180" data-unit="hours">3 hours</option>
+                        <option value="240" data-unit="hours">4 hours</option>
+                        <option value="1440" data-unit="hours">1 day</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Row 4: Push to Channels Section -->
+            <div class="row mb-3" style="border-bottom: 1px solid rgba(0, 0, 0, 0.1); padding-bottom: 10px;">
+                <div class="col-md-6">
+                    <label for="channelList" class="form-label text-start">Available Channels:</label>
+                    <input type="text" id="channelFilter" class="form-control custom-input mb-2 teams-custom-input" placeholder="Filter channels...">
+                    <select id="channelList" class="form-control custom-input teams-custom-input" size="10" multiple>
+                        @if (ViewData["ChannelDictionary"] != null)
+                        {
+                            var channelDictionary = ViewData["ChannelDictionary"] as Dictionary<string, string>;
+                            if (channelDictionary != null && channelDictionary.Any())
+                            {
+                                foreach (var kvp in channelDictionary)
+                                {
+                                    <option value="@kvp.Key">@kvp.Value</option> <!-- Key is stored, Value is displayed -->
+                                }
+                            }
+                            else
+                            {
+                                <option value="">No channels available</option>
+                            }
+                        }
+                        else
+                        {
+                            <option value="">No channels available</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="selectedChannelsTable" class="form-label text-start">Selected Channels:</label>
+                    <table id="selectedChannelsTable" class="table table-bordered mt-2">
+                        <thead>
+                            <tr>
+                                <th>Channel</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="channelTableBody">
+                            <tr id="defaultMessageRow">
+                                <td colspan="2" class="text-center">
+                                    <span style="font-family: 'Arial', sans-serif; font-weight: bold; color: #7d5d6a; font-size: 16px;">No channels selected</span>
+                                    <img src="/images/preview_IMGs/NoChannelSelected.png" alt="No channels selected" style="width: 190px; height: auto; margin-left: 10px;">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Row 5: Submit Button -->
+            <div class="row mb-3">
+                <div class="col-12 text-end">
+                    <button type="button" id="deleteBtn" class="btn" data-job-name="Teams" style="background-color: #4E5FBF; color: white;" onclick="deleteSingleJob(this)">
+                        Delete
+                    </button>
+
+                    <button type="submit" class="btn" style="background-color:#4E5FBF;color:white" onclick="generateJSON('teams')">Update Settings</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

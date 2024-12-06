@@ -1,0 +1,12 @@
+﻿
+<h3 class="mt-4">Response (JSON)</h3>
+@if (ViewBag.Response != null)
+{
+    <pre class="p-3 bg-light border rounded">
+        @Html.Raw(ViewBag.Response)
+                    </pre>
+}
+else
+{
+    <p class="text-muted">No mailbox settings available.</p>
+}

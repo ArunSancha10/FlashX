@@ -1,0 +1,221 @@
+﻿@page
+@model outofoffice.Views.Home.responseStatusModel
+@{
+}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<style>
+    body {
+        font-family: 'Varela Round', sans-serif;
+    }
+
+    .modal-confirm {
+        color: #636363;
+        width: 325px;
+        font-size: 14px;
+    }
+
+        .modal-confirm .modal-content {
+            padding: 20px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .modal-confirm .modal-header {
+            border-bottom: none;
+            position: relative;
+        }
+
+        .modal-confirm h4 {
+            text-align: center;
+            font-size: 26px;
+            margin: 30px 0 -15px;
+        }
+
+        .modal-confirm .form-control, .modal-confirm .btn {
+            min-height: 40px;
+            border-radius: 3px;
+        }
+
+        .modal-confirm .close {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+        }
+
+        .modal-confirm .modal-footer {
+            border: none;
+            text-align: center;
+            border-radius: 5px;
+            font-size: 13px;
+        }
+
+        .modal-confirm .icon-box {
+            color: #fff;
+            position: absolute;
+            margin: 0 auto;
+            left: 0;
+            right: 0;
+            top: -70px;
+            width: 95px;
+            height: 95px;
+            border-radius: 50%;
+            z-index: 9;
+            background: #82ce34; /* Updated color for variation */
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+        }
+
+            .modal-confirm .icon-box i {
+                font-size: 58px; /* Adjusted for consistency */
+                position: relative;
+                top: 3px;
+            }
+
+        .modal-confirm .ericon-box {
+            color: #fff;
+            position: absolute;
+            margin: 0 auto;
+            left: 0;
+            right: 0;
+            top: -70px;
+            width: 95px;
+            height: 95px;
+            border-radius: 50%;
+            z-index: 9;
+            background: #ef513a; /* Updated color for variation */
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+        }
+
+            .modal-confirm .ericon-box i {
+                font-size: 58px; /* Adjusted for consistency */
+                position: relative;
+                top: 3px;
+            }
+
+        .modal-confirm .erbtn {
+            color: #fff;
+            border-radius: 4px;
+            background: #ef513a; /* Main button color */
+            text-decoration: none;
+            transition: all 0.4s;
+            line-height: normal;
+            border: none;
+        }
+
+        .modal-confirm .btn {
+            color: #fff;
+            border-radius: 4px;
+            background: #82ce34; /* Main button color */
+            text-decoration: none;
+            transition: all 0.4s;
+            line-height: normal;
+            border: none;
+        }
+
+
+        .modal-confirm.modal-dialog {
+            margin-top: 80px;
+        }
+
+        .modal-confirm .btn {
+            color: #fff;
+            border-radius: 4px;
+            background: #82ce34; /* Main button color */
+            text-decoration: none;
+            transition: all 0.4s;
+            line-height: normal;
+            border: none;
+        }
+
+            .modal-confirm .btn:hover, .modal-confirm .btn:focus {
+                background: #6fb32b; /* Darker shade for hover effect */
+                outline: none;
+            }
+
+    .trigger-btn {
+        display: inline-block;
+        margin: 100px auto;
+    }
+</style>
+
+<!-- Success Modal HTML -->
+<div id="successModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="icon-box">
+                    <i class="material-icons">&#xE876;</i>
+                </div>
+                <h4 class="modal-title w-100">Success!</h4>
+            </div>
+            <div class="modal-body">
+                <p class="text-center">@ViewBag.Message</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success btn-block" data-dismiss="modal" onclick="discardUrl('Recent')">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Error Modal HTML -->
+<div id="errorModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="ericon-box">
+                    <i class="material-icons">&#xE5CD;</i>
+                </div>
+                <h4 class="modal-title w-100">Sorry!</h4>
+            </div>
+            <div class="modal-body">
+                <p class="text-center">@ViewBag.Message</p>
+            </div>
+            <div class="modal-footer">
+                <button class="erbtn btn-danger btn-block" data-dismiss="modal" onclick="discardUrl('New')">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Use inline Razor to pass the value directly
+        var isSuccess = @(ViewBag.IsSuccess != null ? ViewBag.IsSuccess.ToString().ToLower() : "null");
+
+        if (isSuccess === true) {
+            // Show Success Modal
+            $('#successModal').modal('show');
+            // Redirect to home after 3 seconds (3000 milliseconds)
+            // setTimeout(function () {
+            //     window.location.href = 'http://localhost:5062/Home/New';
+            // }, 3000);
+        } else if (isSuccess === false) {
+            // Show Error Modal
+            $('#errorModal').modal('show');
+            // Redirect to home after 3 seconds (3000 milliseconds)
+            // setTimeout(function () {
+            //     window.location.href = 'http://localhost:5062';
+            // }, 3000);
+        }
+    });
+
+            function discardUrl(selectedTab) {
+            // Get the origin (protocol + host) from the current URL
+            const origin = window.location.origin;
+
+            // Construct the URL using the origin and append the path
+            const url = `${origin}/Home/${selectedTab}`;
+
+        // Redirect to the constructed URL
+        window.location.href = url;
+    }
+
+
+</script>

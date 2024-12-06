@@ -1,0 +1,90 @@
+﻿@model ViewMailBoxSettings
+
+@{
+    string dateTimeFormat = $"{User.GetUserGraphDateFormat()} {User.GetUserGraphTimeFormat()}";
+}
+    <script src="~/js/site.js"></script>
+
+
+
+
+<div class="container mt-4">
+
+    <div class="card shadow-lg p-4" style="max-width: 700px; margin: 0 auto;">
+
+        <form asp-action="SetAutomaticReplies" asp-controller="Exchange" data-ajax="true" data-ajax-method="post" data-ajax-failure="failed" data-ajax-success="success" asp-controller="Global" method="post" id="mailForm">
+
+            <div class="card-body">
+            <!-- Row 1: Icon and Header -->
+                <div class="row mb-4 align-items-center">
+                    <div class="col-2 text-center">
+                        <img src="/images/app_IMGs/outlook.png" alt="Outlook Logo" style="width: 60px; height: auto;">
+                    </div>
+                    <div class="col-10">
+                        <h2 class="m-0">Update Mailbox Settings</h2>
+                    </div>
+                </div>
+                <hr class="text-muted">
+
+            <!-- Row 2: Start Date and End Date -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <label for="startTime" class="form-label">Schedule Start Time</label>
+                        <date-time-offset id="ScheduledStartDateTime" name="ScheduledStartDateTime" value="Model.ScheduledStartDateTime" class="form-control" time-zone="@User.GetUserGraphTimeZone()" format="@dateTimeFormat" is-editable="true"></date-time-offset>
+                        <div class="invalid-feedback">Please provide a start time.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="endTime" class="form-label">Schedule End Time</label>
+                        <date-time-offset id="ScheduledEndDateTime" name="ScheduledEndDateTime" value="Model.ScheduledEndDateTime" class="form-control" time-zone="@User.GetUserGraphTimeZone()" format="@dateTimeFormat" is-editable="true"></date-time-offset>
+                        <div class="invalid-feedback">Please provide an end time.</div>
+                    </div>
+                </div>
+                <hr class="text-muted">
+
+            <!-- Row 3: Message Text Area -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <label for="outlookautoReplyMessage" class="form-label">Automatic Reply Message</label>
+                        <div id="outlookautoReplyMessage"
+                                  required style="height:10em;"></div>
+
+                        <input type="hidden" id="quillContent" name="Content" />
+    @* 
+                        <div id="outlookautoReplyMessage"
+                             name="Content"
+                             class="form-control outlook-custom-input"
+                             rows="10"
+                             placeholder="Enter your message..."
+                             required></div> *@
+
+                        <div class="invalid-feedback">Please enter a reply message.</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="card-footer">
+
+                <!-- Row 4: Submit Button -->
+                <div class="row">
+                    <div class="col-12 text-end">
+                        <button type="submit"
+                                class="btn"
+                                style="background-color: #249ee4; color: white;">
+                            Update Settings
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+

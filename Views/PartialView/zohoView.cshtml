@@ -1,0 +1,86 @@
+﻿<div class="container mt-4">
+    <div class="card shadow p-4" style="max-width: 600px; margin: 0 auto;">
+        <input type="hidden" name="ZohoTimeOffID" id="ZohoTimeOffID" />
+        <!-- Row 1: Icon and Heading -->
+        <div class="row mb-4">
+            <div class="col-2 text-center">
+                <img src="/images/app_IMGs/zoho.png" alt="Zoho Logo" style="width: 60px; height: auto;">
+            </div>
+            <div class="col-10 d-flex align-items-center">
+                <h2 class="m-0">Update Zoho Settings</h2>
+            </div>
+        </div>
+        <hr class="text-muted">
+
+        <!-- Row 2: Time Off Type and Reason -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <label for="zohotimeOffType" class="form-label">Time Off Type</label>
+                <select id="zohotimeOffType"
+                        class="form-select custom-input shadow-sm"
+                        required>
+                    <option value="Datetime">DateTime</option>
+                    <option value="Date">Date</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="zohoreason" class="form-label">Reason</label>
+                <select id="zohoreason"
+                        class="form-select custom-input shadow-sm"
+                        required>
+                    <option value="" disabled selected>Select</option>
+                    @* <option value="Personal">Personal</option> *@
+                    <option value="Leave">Leave</option>
+                    <option value="Other work">Other work</option>
+                </select>
+            </div>
+        </div>
+        <hr class="text-muted">
+
+        <!-- Row 3: Start Date and End Date -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <label for="startDate" class="form-label">Start Date</label>
+                <input type="datetime-local"
+                       id="zohostartDate"
+                       class="form-control custom-input shadow-sm"
+                       required>
+                <small id="startDateMessage" class="text-muted"></small>
+            </div>
+            <div class="col-md-6">
+                <label for="endDate" class="form-label">End Date</label>
+                <input type="datetime-local"
+                       id="zohoendDate"
+                       class="form-control custom-input shadow-sm"
+                       required>
+                <small id="endDateMessage" class="text-muted"></small>
+            </div>
+        </div>
+        <hr class="text-muted">
+
+        <!-- Row 4: Description -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <label for="message" class="form-label">message</label>
+                <textarea id="zohoMessage"
+                          class="form-control custom-input shadow-sm"
+                          rows="10"
+                          placeholder="Enter a brief description"
+                          required></textarea>
+            </div>
+        </div>
+        <hr class="text-muted">
+
+        
+
+        <!-- Row 5: Submit Button -->
+        <div class="row">
+            <div class="col-12 text-end">
+                <button type="button" id="deleteBtn" class="btn" data-job-name="Zoho" style="background-color: #089949; color: white;" onclick="deleteSingleJob(this)">Delete</button>
+                <button type="submit" class="btn" style="background-color: #089949; color: white;" onclick="generateJSON('zoho')">Update Settings</button>
+                
+            </div>
+        </div>
+
+    </div>
+</div>

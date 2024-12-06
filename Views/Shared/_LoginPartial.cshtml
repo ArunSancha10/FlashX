@@ -1,0 +1,22 @@
+﻿<ul class="nav navbar-nav">
+@*     @if (User.Identity?.IsAuthenticated ?? false)
+    {
+        <li class="nav-item d-flex align-items-center">
+            <img src="@User.GetUserGraphPhoto()" class="nav-profile-photo rounded-circle align-self-center me-2">
+            <span class="text-light me-3 mr-3" >@User.GetUserGraphDisplayName()</span>
+            <input type="hidden" name="graphusername" id="username" value="@User.GetUserGraphDisplayName()" />
+            <input type="hidden" name="graphuseremailid" id="emailid" value="@User.GetUserGraphEmail()" />
+            <a class="btn btn-outline-light btn-sm" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">Sign out</a>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn">Sign in</a>
+        </li>
+    } *@
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="UserLogin" asp-action="Logout">Sign Out</a>
+    </li>
+</ul>
+

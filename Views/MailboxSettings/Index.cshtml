@@ -1,0 +1,180 @@
+﻿@model MailboxSettings
+
+@{
+    // Variables for displaying settings
+    var archiveFolder = Model.ArchiveFolder ?? "Not set";
+    var timeZone = Model.TimeZone ?? "Not set";
+    var dateFormat = Model.DateFormat ?? "Not set";
+    var timeFormat = Model.TimeFormat ?? "Not set";
+    var meetingOptions = Model.DelegateMeetingMessageDeliveryOptions.ToString();
+    var replyStatus = Model.AutomaticRepliesSetting?.Status.ToString() ?? "Not set";
+    var scheduledStart = Model.AutomaticRepliesSetting?.ScheduledStartDateTime?.DateTime ?? "Not set";
+    var scheduledEnd = Model.AutomaticRepliesSetting?.ScheduledEndDateTime?.DateTime ?? "Not set";
+    var languageDisplayName = Model.Language?.DisplayName ?? "Not set";
+    var locale = Model.Language?.Locale ?? "Not set";
+
+    // Working hours
+    var daysOfWeek = Model.WorkingHours?.DaysOfWeek;
+    var daysToDisplay = (daysOfWeek != null && daysOfWeek.Count > 0)
+        ? string.Join(", ", daysOfWeek)
+        : "Not set";
+    var startTime = Model.WorkingHours?.StartTime != null
+        ? Model.WorkingHours.StartTime.Value.ToString() // Format for TimeSpan or Time type
+        : "Not set";
+
+    var endTime = Model.WorkingHours?.EndTime != null
+        ? Model.WorkingHours.EndTime.Value.ToString() // Format for TimeSpan or Time type
+        : "Not set";
+
+
+    var timeZoneName = Model.WorkingHours?.TimeZone?.Name ?? "Not set";
+}
+<div class="container mt-4">
+
+    <h2 class="mt-4">Mailbox Settings</h2>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            Current Settings
+        </div>
+        <div class="card-body">
+            <p><strong>Archive Folder:</strong> @archiveFolder</p>
+            <p><strong>Time Zone:</strong> @timeZone</p>
+            <p><strong>Date Format:</strong> @dateFormat</p>
+            <p><strong>Time Format:</strong> @timeFormat</p>
+            <p><strong>Delegate Meeting Message Delivery Options:</strong> @meetingOptions</p>
+            <p><strong>Automatic Replies Status:</strong> @replyStatus</p>
+            <p><strong>Scheduled Start:</strong> @scheduledStart</p>
+            <p><strong>Scheduled End:</strong> @scheduledEnd</p>
+            <p><strong>Language Display Name:</strong> @languageDisplayName</p>
+            <p><strong>Locale:</strong> @locale</p>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            Working Hours
+        </div>
+        <div class="card-body">
+            <p><strong>Days of Week:</strong> @daysToDisplay</p>
+            <p><strong>Start Time:</strong> @startTime</p>
+            <p><strong>End Time:</strong> @endTime</p>
+            <p><strong>Time Zone Name:</strong> @timeZoneName</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            Update Mailbox Settings
+        </div>
+        <div class="card-body">
+@*             <form asp-action="Edit" method="post">
+                <div class="mb-3">
+                    <label for="TimeZone" class="form-label">Time Zone</label>
+                    <input type="text" id="TimeZone" name="settings.TimeZone" class="form-control" value="@timeZone" placeholder="Enter Time Zone">
+                </div>
+                <div class="mb-3">
+                    <label for="ReplyStatus" class="form-label">Automatic Replies Status</label>
+                    <select id="ReplyStatus" name="settings.AutomaticRepliesStatus" class="form-select">
+                        <option value="0" selected>Disabled</option>
+                        <option value="1">Always Enabled</option>
+                        <option value="2">Scheduled</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="StartDateTime" class="form-label">Scheduled Start Date/Time</label>
+                    <input type="datetime-local" id="StartDateTime" name="settings.ScheduledStartDateTime" class="form-control" placeholder="Select start date and time">
+                </div>
+                <div class="mb-3">
+                    <label for="EndDateTime" class="form-label">Scheduled End Date/Time</label>
+                    <input type="datetime-local" id="EndDateTime" name="settings.ScheduledEndDateTime" class="form-control" placeholder="Select end date and time">
+                </div>
+                <button type="submit" class="btn btn-success">Update Settings</button>
+            </form>
+ *@
+
+
+@*             <form asp-action="Edit" method="post">
+                <div class="mb-3">
+                    <label for="TimeZone" class="form-label">Time Zone</label>
+                    <input type="text" id="TimeZone" name="Model.TimeZone" class="form-control" value="@timeZone" placeholder="Enter Time Zone">
+                </div>
+
+                <!-- Bind AutomaticRepliesSetting properties -->
+                <div class="mb-3">
+                    <label for="AutomaticRepliesStatus" class="form-label">Automatic Replies Status</label>
+                    <select asp-for="AutomaticRepliesSetting.Status" class="form-select">
+                        <option value="0" selected>Disabled</option>
+                        <option value="1">Always Enabled</option>
+                        <option value="2">Scheduled</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="ScheduledStartDateTime" class="form-label">Scheduled Start Date/Time</label>
+                    <input type="datetime-local" asp-for="AutomaticRepliesSetting.ScheduledStartDateTime" class="form-control" placeholder="Select start date and time">
+                </div>
+                <div class="mb-3">
+                    <label for="ScheduledEndDateTime" class="form-label">Scheduled End Date/Time</label>
+                    <input type="datetime-local" asp-for="AutomaticRepliesSetting.ScheduledEndDateTime" class="form-control" placeholder="Select end date and time">
+                </div>
+
+                <button type="submit" class="btn btn-success">Update Settings</button>
+            </form>
+ *@
+
+
+            <form asp-action="Edit" method="post">
+    <div class="mb-3">
+        <label for="TimeZone" class="form-label">Time Zone</label>
+        <input type="text" id="TimeZone" name="AutomaticRepliesSetting.ScheduledEndDateTime.TimeZone" class="form-control" value="@Model.AutomaticRepliesSetting.ScheduledEndDateTime.TimeZone" placeholder="Enter Time Zone">
+    </div>
+
+    <!-- Bind AutomaticRepliesSetting properties -->
+    <div class="mb-3">
+        <label for="AutomaticRepliesStatus" class="form-label">Automatic Replies Status</label>
+        <select asp-for="AutomaticRepliesSetting.Status" class="form-select">
+            <option value="0" >Disabled</option>
+            <option value="1" >Always Enabled</option>
+            <option value="2" >Scheduled</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="ScheduledStartDateTime" class="form-label">Scheduled Start Date/Time</label>
+        <input type="datetime" asp-for="AutomaticRepliesSetting.ScheduledStartDateTime.DateTime" class="form-control" placeholder="Select start date and time" value="@Model.AutomaticRepliesSetting.ScheduledStartDateTime.DateTime.ToString()">
+    </div>
+
+    <div class="mb-3">
+        <label for="ScheduledEndDateTime" class="form-label">Scheduled End Date/Time</label>
+        <input type="datetime" asp-for="AutomaticRepliesSetting.ScheduledEndDateTime.DateTime" class="form-control" placeholder="Select end date and time" value="@Model.AutomaticRepliesSetting.ScheduledEndDateTime.DateTime.ToString()">
+    </div>
+
+    <div class="mb-3">
+        <label for="ExternalReplyMessage" class="form-label">External Reply Message</label>
+        <textarea asp-for="AutomaticRepliesSetting.ExternalReplyMessage" class="form-control" rows="3" placeholder="Enter external reply message">@Model.AutomaticRepliesSetting.ExternalReplyMessage</textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="InternalReplyMessage" class="form-label">Internal Reply Message</label>
+        <textarea asp-for="AutomaticRepliesSetting.InternalReplyMessage" class="form-control" rows="3" placeholder="Enter internal reply message">@Model.AutomaticRepliesSetting.InternalReplyMessage</textarea>
+    </div>
+
+    <button type="submit" class="btn btn-success">Update Settings</button>
+</form>
+
+
+        </div>
+    </div>
+
+    <h3 class="mt-4">Mailbox Settings (JSON)</h3>
+    @if (ViewBag.MailBoxSettings != null)
+    {
+        <pre class="p-3 bg-light border rounded">
+            @Html.Raw(ViewBag.MailBoxSettings)
+                </pre>
+    }
+    else
+    {
+        <p class="text-muted">No mailbox settings available.</p>
+    }
+</div>

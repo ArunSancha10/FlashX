@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<body>
+    <div id="zohoprefix-main-container" style="width: 550px; background: #fff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); padding: 15px; font-family: Arial, sans-serif; margin: 20px auto;">
+        <!-- Main Header Section -->
+        <div id="zohoprefix-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <h2 id="zohoprefix-header-title" style="font-size: 18px; color: #333; margin: 0;">Edit Time Off</h2>
+            <button id="zohoprefix-close-btn" style="background: none; border: none; font-size: 18px; color: #aaa; cursor: pointer; padding: 0;" onclick="console.log('Close button clicked')">
+                &times;
+            </button>
+        </div>
+
+        <hr id="zohoprefix-hr1" style="border: 0; border-top: 1px solid #ddd; width: 100%; margin-right: 0; margin-bottom: 20px; margin-left: auto;" />
+
+        <!-- Timeoff Information Header Section -->
+        <div id="zohoprefix-timeoff-info-header" style="display: flex; justify-content: flex-start; align-items: center; margin-bottom: 10px; font-size: 16px; color: #333; font-weight: bold;">
+            Timeoff Information
+        </div>
+
+        <!-- Small Horizontal Rule Below Timeoff Information -->
+        <hr id="zohoprefix-hr2" style="border: 0; border-top: 1px solid #ddd; width: 100%; margin-right: 0; margin-bottom: 20px; margin-left: auto;" />
+
+        <!-- Service Resource Row -->
+        <div id="zohoprefix-service-resource" style="display: flex; align-items: center; margin-bottom: 10px;">
+            <label id="zohoprefix-service-resource-label" style="font-size: 14px; color: #555; width: 30%; text-align: left;">Service Resource</label>
+            <input id="zohoprefix-service-resource-input" type="text" value="John Doe" style="flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; background: #f9f9f9; border-left: 4px solid #f28b82;" />
+        </div>
+
+        <!-- Time Off Type Row -->
+        <div id="zohoprefix-timeoff-type" style="display: flex; align-items: center; margin-bottom: 10px;">
+            <label id="zohoprefix-timeoff-type-label" style="font-size: 14px; color: #555; width: 30%; text-align: left;">Time Off Type</label>
+            <select id="zohoprefix-timeoff-type-select" style="flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; background: #f9f9f9; border-left: 4px solid #f28b82;">
+                <option value="Date">Date</option>
+                <option value="Datetime">Datetime</option>
+            </select>
+        </div>
+
+        <!-- Start Date Time Row -->
+        <div id="zohoprefix-start-date-time" style="display: flex; align-items: center; margin-bottom: 10px;">
+            <label id="zohoprefix-start-date-time-label" style="font-size: 14px; color: #555; width: 30%; text-align: left;">Start Date Time</label>
+            <input id="zohoprefix-start-date-time-input" type="datetime-local" value="2024-11-21T08:58" style="flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; background: #f9f9f9; border-left: 4px solid #f28b82;" />
+        </div>
+
+        <!-- End Date Time Row -->
+        <div id="zohoprefix-end-date-time" style="display: flex; align-items: center; margin-bottom: 10px;">
+            <label id="zohoprefix-end-date-time-label" style="font-size: 14px; color: #555; width: 30%; text-align: left;">End Date Time</label>
+            <input id="zohoprefix-end-date-time-input" type="datetime-local" value="2025-01-16T08:59" style="flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; background: #f9f9f9; border-left: 4px solid #f28b82;" />
+        </div>
+
+        <!-- Days Remaining Text Row -->
+        <div id="zohoprefix-days-remaining" style="display: flex; margin-bottom: 10px;">
+            <label id="zohoprefix-days-remaining-label" style="font-size: 14px; color: #0073e6; width: 50%; text-align: right; margin-bottom: 0;">
+                56 Day(s) 1 min
+            </label>
+        </div>
+
+        <!-- Reason Row -->
+        <div id="zohoprefix-reason-row" style="display: flex; align-items: center; margin-bottom: 10px;">
+            <label id="zohoprefix-reason-label" style="font-size: 14px; color: #555; width: 30%; text-align: left;">Reason</label>
+            <select id="zohoprefix-reason-select" style="flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; background: #f9f9f9; border-left: 4px solid #f28b82;">
+                <option value="Other work">Other work</option>
+                <option value="Vacation">Vacation</option>
+                <option value="Sick leave">Sick leave</option>
+            </select>
+        </div>
+
+        <!-- Comments Row -->
+        <div id="zohoprefix-comments-row" style="display: flex; align-items: center; margin-bottom: 10px;">
+            <label id="zohoprefix-comments-label" style="font-size: 14px; color: #555; width: 30%; text-align: left;">Comments</label>
+            <textarea id="zohoprefix-comments-textarea" rows="2" style="flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; background: #f9f9f9; border-left: 4px solid #f28b82; resize: none;">None</textarea>
+        </div>
+
+        <hr id="zohoprefix-hr3" style="border: 0; border-top: 1px solid #ddd; width: 100%; margin-right: 0; margin-bottom: 20px; margin-left: auto;" />
+
+        <!-- Footer Section with Buttons -->
+        <div id="zohoprefix-footer" style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+            <button id="zohoprefix-cancel-btn" style="padding: 8px 20px; font-size: 14px; border: none; border-radius: 4px; cursor: pointer; background: transparent; color: #dc3545; border: 1px solid #dc3545;">
+                Cancel
+            </button>
+            <button id="zohoprefix-save-btn" style="padding: 8px 20px; font-size: 14px; border: none; border-radius: 4px; cursor: pointer; background: #28a745; color: #fff;">
+                Save
+            </button>
+        </div>
+    </div>
+</body>
+</html>

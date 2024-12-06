@@ -1,0 +1,92 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+
+<link href="~/css/formediaquery.css" rel="stylesheet" />
+<link href="~/css/site.css" rel="stylesheet" />
+
+<div class="container-fluid main-container">
+    <div class="row">
+        <!-- Left Column: Vacation Form -->
+        <div class="col-12 col-md-6">
+            <div class="tab-pane fade show active" id="recent" role="tabpanel" aria-labelledby="recent-tab">
+                <h2>Vacation Calendar</h2>
+                <h5>Choose your Out of Office Start and End Date & Time:</h5>
+                <form class="bg-light-custom p-3 rounded" asp-action="zohoUpdate" asp-controller="ZohoTimeOff" method="post" id="vacationForm">
+                    <div class="form-group">
+                        <label for="startDate">Start Date & Time:</label>
+                        <input type="datetime-local" id="startDate" name="startDate" class="form-control" required>
+                        <div id="startDateError" class="text-danger" style="display:none;">
+                            Please select a valid start date.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">End Date & Time:</label>
+                        <input type="datetime-local" id="endDate" name="endDate" class="form-control" required>
+                        <div id="endDateError" class="text-danger" style="display:none;">Please select a valid end date.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message (Optional):</label>
+                        <textarea id="message" name="Description" rows="4" class="form-control"></textarea>
+                    </div>
+
+                    <!-- Applications Table with Logos -->
+                    <h5>Available Applications</h5>
+                    <h6>Publish my Out of Office to the following applications</h6>
+                    <!-- Add a responsive wrapper around the table -->
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-center">
+                            <thead>
+                                <tr>
+                                    <th class="appTable" onclick="toggleSelection(this, 'Slack')">
+                                        <img src="~/images/slack.png" alt="Slack" class="icon-image">
+                                    </th>
+                                    <th class="appTable" onclick="toggleSelection(this, 'Teams')">
+                                        <img src="~/images/teams.png" alt="Teams" class="icon-image">
+                                    </th>
+                                    <th class="appTable" onclick="toggleSelection(this, 'Zoho')">
+                                        <img src="~/images/zoho.png" alt="Zoho" class="icon-image">
+                                    </th>
+                                    <th class="appTable" onclick="toggleSelection(this, 'Outlook')">
+                                        <img src="~/images/outlook.png" alt="Outlook" class="icon-image">
+                                    </th>
+                                    <th class="appTable" onclick="toggleSelection(this, 'SharePoint')">
+                                        <img src="~/images/sharepoint.png" alt="SharePoint" class="icon-image">
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="app-status" data-app="slack">
+                                        Out Of Office Message will be published to Slack on your Out of Office day.
+                                    </td>
+                                    <td class="app-status" data-app="teams">
+                                        Out Of Office Message will be published to Teams on your Out of Office day.
+                                    </td>
+                                    <td class="app-status" data-app="zoho">
+                                        Out Of Office Message will be published to Zoho on your Out of Office day.
+                                    </td>
+                                    <td class="app-status" data-app="outlook">
+                                        Out Of Office Message will be published to Outlook on your Out of Office day.
+                                    </td>
+                                    <td class="app-status" data-app="sharepoint">
+                                        Out Of Office Message will be published to SharePoint on your Out of Office day.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <input type="hidden" id="selectedApps" name="Application" value="">
+
+                    <!-- Action Buttons -->
+                    <div class="form-group mt-3">
+                        <button type="submit" class="btn btn-primary mr-2">Publish</button>
+                        <button type="button" class="btn btn-secondary">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

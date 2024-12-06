@@ -1,0 +1,56 @@
+﻿@model ViewMailBoxSettings
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+
+                <div class="card-header">
+                    Update Mailbox Settings
+                </div>
+                <div class="card-body">
+
+                    <form asp-action="Edit" method="post">
+                        <div class="mb-3">
+                            <label for="TimeZone" class="form-label">Time Zone</label>
+                            <input type="text" id="TimeZone" asp-for="@Model.TimeZone" class="form-control" value="@Model.TimeZone" placeholder="Enter Time Zone">
+                        </div>
+
+                        <!-- Bind AutomaticRepliesSetting properties -->
+                        <div class="mb-3">
+                            <label for="AutomaticRepliesStatus" class="form-label">Automatic Replies Status</label>
+                            <select asp-for="@Model.automaticRepliesStatus" class="form-select">
+                                <option value="0">Disabled</option>
+                                <option value="1">Always Enabled</option>
+                                <option value="2">Scheduled</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="ScheduledStartDateTime" class="form-label">Scheduled Start Date/Time</label>
+                            <input asp-for="@Model.ScheduledStartDateTime" class="form-control" placeholder="Select start date and time" value="@Model.ScheduledStartDateTime">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="ScheduledEndDateTime" class="form-label">Scheduled End Date/Time</label>
+                            <input asp-for="@Model.ScheduledEndDateTime" class="form-control" placeholder="Select end date and time" value="@Model.ScheduledEndDateTime">
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Update Settings</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="card">
+
+                <partial name="_jsonResponsePartial" />
+
+            </div>
+        </div>
+
+    </div>
+</div>

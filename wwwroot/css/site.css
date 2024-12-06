@@ -1,0 +1,371 @@
+html {
+    font-size: 14px;
+    position: relative;
+    height: 100%;
+}
+
+@keyframes loading {
+
+    from {
+        transform: rotate(0turn);
+    }
+
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(0 0 0 / 80%);
+    transition: opacity 0.75s,visibility 0.75s;
+}
+
+.loader-hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader::after {
+    content: "";
+    width: 75px;
+    height: 75px;
+    border: 15px solid #dddddd;
+    border-top-color: #7449f5;
+    border-radius: 50%;
+    animation: loading 0.75s ease infinite;
+}
+
+body {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-container {
+    padding-top: 20px;
+}
+
+.header-content h1 {
+    font-size: 1.75rem;
+}
+
+.user-info {
+    float: right;
+}
+
+.previewApp img {
+    width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+}
+
+.footer-content {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #333333;
+    color: white;
+    margin-top: auto;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.header-content,
+.preview-section h3,
+.modal-title {
+    color: #3a4b63;
+}
+
+.bg-custom-header {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #333333;
+    color: white;
+}
+
+.bg-light-custom {
+    background-color: #f8f9fa;
+}
+
+.table th {
+    color: #495057;
+}
+
+.table-bordered td,
+.table-bordered th {
+    border: 1px solid #dee2e6;
+}
+
+.preview-section,
+.form-group,
+.table {
+    border: 1px solid #ced4da;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+}
+
+.config-link-text {
+    color: #007bff;
+    cursor: pointer;
+}
+
+.modal-body table {
+    width: 100%;
+}
+
+.modal-body th, .modal-body td {
+    padding: 5px;
+}
+
+.modal-body h5 {
+    margin-top: 15px;
+}
+
+/* Default styling */
+.preview-section {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.previewApp {
+    max-width: 73%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.preview-message {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Styling for Images in Table */
+.icon-image {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+/* For responsive tables with horizontal scrolling */
+.table-responsive {
+    -webkit-overflow-scrolling: touch;
+    overflow-x: auto;
+}
+
+/* Optional: Adjust the form styling for better spacing */
+form {
+    padding: 20px;
+}
+
+h2, h5 {
+    margin-bottom: 15px;
+}
+
+textarea {
+    margin-bottom: 15px;
+}
+
+/* Make sure the table fits within the container */
+#historyTable {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.nav-margin {
+    margin: 0px 10px
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.font-bold {
+    font-weight: bold;
+    color: black;
+}
+
+    .font-bold:hover {
+        color: #d55401;
+    }
+
+.pointer-cursor {
+    cursor: pointer;
+}
+
+th {
+    padding: 10px;
+    text-align: center;
+}
+
+.highlighted {
+    background-color: #dadada !important;
+    border-radius: 8px; /* Retain rounded corners */
+}
+
+/* Ensure th.appTable has no conflicting background color */
+th.appTable {
+    background-color: transparent; /* Ensure it's not transparent initially */
+    padding: 10px; /* Add some padding to make sure background color is visible */
+}
+
+.appTable:hover {
+    border: 2px solid #a19add;
+    border-radius: 8px;
+}
+
+.common-width {
+    width: 150px; /* Adjust the width as needed */
+}
+
+.btn-outline-primary {
+    margin-top: 3px;
+}
+
+/*Config TExtbox style*/
+.custom-input {
+    border: none;
+    border-left: 4px solid #089949; /* Blue left border */
+    border-radius: 0.25rem;
+    padding-left: 10px;
+    box-shadow: 0 0 4px; /* Subtle glow */
+}
+
+.slack-custom-input {
+    border: none;
+    border-left: 4px solid #E01E5A; /* Blue left border */
+    border-radius: 0.25rem;
+    padding-left: 10px;
+    box-shadow: 0 0 4px; /* Subtle glow */
+}
+.teams-custom-input {
+    border: none;
+    border-left: 4px solid #4E5FBF; /* Blue left border */
+    border-radius: 0.25rem;
+    padding-left: 10px;
+    box-shadow: 0 0 4px; /* Subtle glow */
+}
+.outlook-custom-input {
+    border: none;
+    border-left: 4px solid #249ee4; /* Blue left border */
+    border-radius: 0.25rem;
+    padding-left: 10px;
+    box-shadow: 0 0 4px; /* Subtle glow */
+}
+.sharepoint-custom-input {
+    border: none;
+    border-left: 4px solid #148d94; /* Blue left border */
+    border-radius: 0.25rem;
+    padding-left: 10px;
+    box-shadow: 0 0 4px; /* Subtle glow */
+}
+
+.no-items {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* or a fixed height like 200px */
+    border: 2px solid #58615b;
+    text-align: center;
+}
+
+/* Base positioning */
+.filterInput {
+    position: absolute;
+    right: 15px;
+    top: -45px;
+    width: 20rem;
+}
+
+.clear-icon {
+    cursor: pointer;
+    top: -28px !important;
+    right: 17px !important;
+    position: absolute;
+    display: none;
+}
+
+#sharepointTable textarea {
+    height: 1em;
+    padding: 2px; /* Optional: for better spacing inside the textarea */
+    box-sizing: border-box; /* Ensures padding does not affect height */
+}
+}
+
+/* Channel option Style */
+
+/* Styling for the select dropdown */
+select {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+/* Flexbox layout for displaying channels in a column-like structure */
+.channel-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Header styling */
+.channel-header {
+    display: flex;
+    font-weight: bold;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #000;
+    padding-bottom: 5px;
+}
+
+.header-item {
+    width: 45%;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.channel-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.team-name, .channel-name {
+    width: 45%;
+    padding-left: 10px;
+}
+
+.no-channels {
+    color: gray;
+    font-style: italic;
+}
+
+.badge-warning {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.badge-success {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.badge-secondary {
+    background-color: #6c757d;
+    color: #fff;
+}

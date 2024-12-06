@@ -1,0 +1,77 @@
+﻿<div class="container mt-4">
+    <div class="card shadow-lg p-4" style="max-width: 800px; margin: 0 auto;">
+
+        <!-- Row 1: Icon and Header -->
+        <div class="row mb-4 align-items-center">
+            <div class="col-2 text-center">
+                <img src="/images/app_IMGs/sharepoint.png" alt="SharePoint Logo" style="width: 60px; height: auto;">
+            </div>
+            <div class="col-10">
+                <h2 class="m-0">Update SharePoint Settings</h2>
+            </div>
+        </div>
+        <hr class="text-muted">
+
+        <!-- Row 2: Available Channels and Selected Channels -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <label for="channelList" class="form-label">Available Channels</label>
+                <input type="text"
+                       id="channelFilter"
+                       class="form-control sharepoint-custom-input mb-2"
+                       placeholder="Filter channels...">
+                <select id="channelList"
+                        class="form-control sharepoint-custom-input"
+                        size="10"
+                        multiple>
+                    <option value="Channel 1">Channel 1</option>
+                    <option value="Channel 2">Channel 2</option>
+                    <option value="Channel 3">Channel 3</option>
+                    <option value="Channel 4">Channel 4</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Selected Channels</label>
+                <table id="selectedChannelsTable" class="table table-bordered mt-2">
+                    <thead>
+                        <tr>
+                            <th>Channel</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="channelTableBody">
+                        <tr id="defaultMessageRow">
+                            <td colspan="2" class="text-center">
+                                <span style="font-family: 'Arial', sans-serif; font-weight: bold; color: #7d5d6a; font-size: 16px;">
+                                    No channels selected
+                                </span>
+                                <img src="/images/preview_IMGs/NoChannelSelected.png"
+                                     alt="No channels selected"
+                                     style="width: 190px; height: auto; margin-left: 10px;">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <hr class="text-muted">
+
+
+        <!-- Row 6: Submit Button -->
+        <div class="row">
+            <div class="col-12 text-end">
+                <button type="button" id="deleteBtn" class="btn" data-job-name="Sharepoint" style="background-color: #148d94; color: white;" onclick="deleteSingleJob(this)">
+                    Delete
+                </button>
+
+                <button type="submit"
+                        class="btn"
+                        style="background-color: #148d94; color: white;"
+                        onclick="generateJSON('sharepoint')">
+                    Update Settings
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,94 @@
+﻿@{
+    Layout = null; // No master layout
+    var loginError = ViewBag.loginError; // Check if there's an error passed from the controller
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"> <!-- Font Awesome for Icons -->
+    <style>
+        body {
+            background-color: white; /* Set background color to white */
+            color: black; /* Default text color */
+        }
+
+        .login-container {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            border: 1px solid white;
+            border-radius: 8px;
+            background-color: white; /* White card background */
+            box-shadow: 0 4px 8px; /* Shadow matching border color (orange) */
+            height: 350px; /* Increased height for the card */
+        }
+
+        .btn-orange {
+            background-color: orange;
+            color: white;
+            border: none;
+        }
+
+            .btn-orange:hover {
+                background-color: darkorange;
+            }
+
+        .form-label {
+            color: black; /* Label text color */
+        }
+
+        .error-message {
+            color: red; /* Error message in red */
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .mb-4-extra {
+            margin-bottom: 30px; /* Extra margin between password and button */
+        }
+    </style>
+</head>
+<body>
+    <div class="container login-container">
+        <div class="login-card">
+            <h3 class="text-center mb-4">
+                <i class="fas fa-user-circle"></i> Login
+            </h3>
+
+            <form method="post" action="/UserLogin/LoginAuthentication">
+                <div class="mb-3">
+                    <label for="username" class="form-label">User Name</label>
+                    <input type="text" class="form-control" id="username" name="Username" placeholder="Enter your username" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="Password" placeholder="Enter your password" required>
+                    @if (!string.IsNullOrEmpty(loginError))
+                    {
+                        <span class="error-message">@loginError</span>
+                    }
+                </div>
+                <div class="mb-4-extra"></div> <!-- Added extra margin -->
+                <div>
+                    <button type="submit" class="btn btn-orange w-100">Login</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script> <!-- Font Awesome JS -->
+</body>
+</html>

@@ -1,0 +1,225 @@
+﻿
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 16px;
+            border-bottom: 1px solid #ccc;
+        }
+
+            .header h1 {
+                margin: 0;
+                font-size: 18px;
+            }
+
+            .header button {
+                background: none;
+                border: none;
+                font-size: 18px;
+                cursor: pointer;
+            }
+
+                .header button:hover {
+                    color: red;
+                }
+
+        .toggle-section, .checkbox-section, .time-section {
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+        }
+
+            .checkbox-section label, .time-section label {
+                margin-left: 8px;
+                font-size: 14px;
+            }
+
+        .time-input {
+            border: 1px solid #ccc;
+            padding: 4px;
+            font-size: 14px;
+            width: 100%;
+            margin-top: 4px;
+            border-radius: 4px;
+        }
+
+            .time-input:focus {
+                outline: none;
+                border-color: #007bff;
+            }
+
+        .icon {
+            font-size: 14px;
+            color: #555;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+            .icon:hover {
+                color: #007bff;
+            }
+
+        .textarea-container {
+            padding: 16px;
+        }
+
+        .textarea-header {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            padding: 4px 8px;
+            border-radius: 4px 4px 0 0;
+            background-color: #f8f9fa;
+        }
+
+            .textarea-header i {
+                margin-right: 8px;
+                cursor: pointer;
+            }
+
+                .textarea-header i:hover {
+                    color: #007bff;
+                }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            border: 1px solid #ccc;
+            padding: 8px;
+            font-size: 14px;
+            border-radius: 0 0 4px 4px;
+            resize: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="header">
+        <h1>Automatic replies</h1>
+        <button>&times;</button>
+    </div>
+
+    <!-- Toggle Section -->
+    <div class="toggle-section">
+        <label for="automaticReplyToggle">
+            Use automatic replies to let others know you're on vacation or aren't available to respond to email. You can set your replies to start and end at a specific time. Otherwise, they'll continue until you turn them off.
+        </label>
+    </div>
+
+    <!-- Toggle Switch -->
+    <div class="toggle-section">
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="automaticReplyToggle" checked disabled>
+        </div>
+        <label for="automaticReplyToggle">Automatic replies on</label>
+    </div>
+
+    <!-- Checkbox Section -->
+    <div class="checkbox-section">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="timePeriodCheckbox" checked>
+        </div>
+        <label for="timePeriodCheckbox">Send replies only during a time period</label>
+    </div>
+
+    <!-- Start Time Section -->
+    <div class="time-section row">
+        <div class="col-2">
+            <label for="startDate">Start time</label>
+        </div>
+        <div class="col-2">
+            <div class="input-group">
+                <input type="text" class="form-control time-input" id="outpreviewstartDate" />
+            </div>
+        </div>
+        <div class="col-1 d-flex align-items-center justify-content-center">
+            <span class="input-group-text">
+                <i class="fa fa-calendar"></i>
+            </span>
+        </div>
+        <div class="col-2">
+            <div class="input-group">
+                <input type="text" class="form-control time-input" id="outpreviewstartTime"/>
+            </div>
+        </div>
+        <div class="col-1 d-flex align-items-center justify-content-center">
+            <span class="input-group-text">
+                <i class="fa fa-clock"></i>
+            </span>
+        </div>
+    </div>
+
+    <!-- End Time Section -->
+    <div class="time-section row">
+        <div class="col-2">
+            <label for="endDate">End time</label>
+        </div>
+        <div class="col-2">
+            <div class="input-group">
+                <input type="text" class="form-control time-input" id="outpreviewendDate" />
+            </div>
+        </div>
+        <div class="col-1 d-flex align-items-center justify-content-center">
+            <span class="input-group-text">
+                <i class="fa fa-calendar"></i>
+            </span>
+        </div>
+        <div class="col-2">
+            <div class="input-group">
+                <input type="text" class="form-control time-input" id="outpreviewendTime" />
+            </div>
+        </div>
+        <div class="col-1 d-flex align-items-center justify-content-center">
+            <span class="input-group-text">
+                <i class="fa fa-clock"></i>
+            </span>
+        </div>
+    </div>
+
+    <!-- Checkbox Section -->
+    <div class="checkbox-section">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="calendarCheckbox" checked>
+        </div>
+        <label for="calendarCheckbox">Block my calendar for this period</label>
+    </div>
+    <div class="checkbox-section">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="calendarCheckbox" checked>
+        </div>
+        <label for="calendarCheckbox">Automatically decline new invitations for events that occur during this period</label>
+    </div>
+    <div class="checkbox-section">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="calendarCheckbox" checked>
+        </div>
+        <label for="calendarCheckbox">Decline and cancel my meetings during this period</label>
+    </div>
+    <!-- Textarea Section -->
+    <div class="textarea-container" id="previewtext">
+        <div class="textarea-header">
+            <i class="fas fa-bold icon"></i>
+            <i class="fas fa-italic icon"></i>
+            <i class="fas fa-underline icon"></i>
+            <i class="fas fa-align-left icon"></i>
+            <i class="fas fa-align-center icon"></i>
+            <i class="fas fa-align-right icon"></i>
+        </div>
+        <textarea id="outlookpreviewtextarea" placeholder="Type your message here..."></textarea>
+    </div>
+    <!-- Textarea Section -->
+    <div id="outlookautoReplyMessagePreview"
+         required style="height:10em;"></div>
+
+</body>
+</html>
+
+
+
+

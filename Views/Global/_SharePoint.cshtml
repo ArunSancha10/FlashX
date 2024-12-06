@@ -1,0 +1,100 @@
+﻿@model SharePointModel
+
+<div  class="container mt-4">
+
+        <div class="card shadow-lg p-4" style="max-width: 800px; margin: 0 auto; max-height:600px; overflow-y:scroll;">
+            <!-- Row 1: Icon and Header -->
+            <div class="row mb-4 align-items-center">
+                <div class="col-2 text-center">
+                    <img src="/images/app_IMGs/sharepoint.png" alt="SharePoint Logo" style="width: 60px; height: auto;">
+                </div>
+                <div class="col-10">
+                    <h2 class="m-0">Update SharePoint Settings</h2>
+                </div>
+            </div>
+            <hr class="text-muted">
+
+        <form asp-action="addSites" data-ajax="true" data-ajax-method="post" data-ajax-failure="failed" data-ajax-success="successSharepoint" asp-controller="global" method="post">
+                <input type="hidden" asp-for="Id" />
+                <table id ="sharepointTable" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Month</th>
+                            <th>Leave Dates</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Employee</td>
+                            <td><input type="text" class="form-control" value="@User.GetUserGraphDisplayName()" readonly /></td>
+                        </tr>
+                        <tr>
+                            <td>January</td>
+                            <td><textarea style="height:1em;" class="form-control" asp-for="Jan"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>February</td>
+                            <td><textarea style="height:1em;" class="form-control" asp-for="Feb">></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>March</td>
+                        <td><textarea style="height:1em;" class="form-control" asp-for="Mar"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>April</td>
+                            <td><textarea style="height:1em;" class="form-control" asp-for="Apr"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>May</td>
+                            <td><textarea class="form-control" style="height:1em;" asp-for="May"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>June</td>
+                            <td><textarea style="height:1em;" class="form-control" asp-for="Jun"></textarea> </td>
+                        </tr>
+                        <tr>
+                            <td>July</td>
+                            <td>
+                                <textarea style="height:1em;" class="form-control" asp-for="Jul"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>August</td>
+                            <td><textarea style="height:1em;" class="form-control" asp-for="Aug"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>September</td>
+                            <td><textarea class="form-control" style="height:1em;" asp-for="Sep"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>October</td>
+                            <td><textarea style="height:1em;" class="form-control" asp-for="Oct"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>November</td>
+                            <td><textarea style="height:1em;" class="form-control" asp-for="Nov"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>December</td>
+                            <td><textarea style="height:1em;" class="form-control" asp-for="Dec"></textarea></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+                <!-- Row 6: Submit Button -->
+                <div class="row">
+                    <div class="col-12 text-end">
+                        <button type="submit"
+                                class="btn"
+                                style="background-color: #148d94; color: white;">
+                            Update Settings
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+
+</div>

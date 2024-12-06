@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    <!-- Title for the home page -->
+}
+
+
+
+
+
+<div class="container-fluid main-container">
+    <div class="row">
+        <!-- Left Column: Tabs and Vacation Calendar Form -->
+        <div class="col-lg-6">
+            <!-- Tabs Section -->
+            <ul class="nav nav-tabs" id="outOfOfficeTabs">
+                <li class="nav-item">
+                    <a class="nav-link font-bold pointer-cursor" id="recent-tab" role="tab" aria-controls="recent" aria-selected="true" onclick="valueValidate('Recent');">Recent Out Of Office</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link font-bold pointer-cursor" id="new-tab" role="tab" aria-controls="new" aria-selected="false" onclick="window.location.href='@Url.Action("New", "Home")'">New</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link font-bold pointer-cursor" id="history-tab" role="tab" aria-controls="history" aria-selected="false" onclick="valueValidate('History'); ">History</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

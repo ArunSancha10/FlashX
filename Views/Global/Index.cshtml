@@ -1,0 +1,63 @@
+﻿@model GraphModel
+<div class="container">
+
+    <div class="row">
+        <div class="col-6">
+            <partial name="_SharePoint" model="Model.SharePoint"/>
+        </div>
+        <div class="col-6">
+            <div id="mailSettingsContainer">
+                <partial name="_MailSettings" model="Model.MailBoxSettings" />
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <script>
+
+        $(document).ready(function () {
+            const quill = new Quill('#editor', {
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic'],
+                        ['link', 'blockquote', 'code-block', 'image'],
+                        [{ list: 'ordered' }, { list: 'bullet' }],
+                    ],
+                },
+                theme: 'snow',
+            });
+
+            const initialData = {
+                about: [
+                    {
+                        insert:
+                            'A robot who has developed sentience, and is the only robot of his kind shown to be still functioning on Earth.\n',
+                    },
+                ],
+            };
+
+            const resetForm = () => {
+                quill.setContents(initialData.about);
+            };
+
+            resetForm();
+
+            // const form = document.querySelector('#mailForm');
+            // form.addEventListener('formdata', (event) => {
+            //     // Append Quill content before submitting
+            //     alert(JSON.stringify(quill.getContents().ops));
+            //     event.formData.append('about', JSON.stringify(quill.getContents().ops));
+            // });
+
+            document.querySelector('#mailForm').onsubmit = function () {
+                document.getElementById('quillContent').value = quill.root.innerHTML;
+                   };
+          
+        });
+    </script>
+
+}
+

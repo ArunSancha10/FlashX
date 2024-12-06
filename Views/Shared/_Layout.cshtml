@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        @ViewData["Title"] FlashX - Out of Office Management
+    </title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Add Font Awesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.bubble.css" />
+
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+@{
+    // Check the ViewData for header visibility with default true if null
+    bool showHeaderFooter = ViewData["ShowHeaderFooter"] as bool? ?? true;
+    bool showPreviewHeaderFooter = ViewData["ShowPreviewHeaderFooter"] as bool? ?? true;
+}
+
+<body>
+    @if (showHeaderFooter && showPreviewHeaderFooter)
+    {
+        <header class="bg-custom-header p-3">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div style="display: flex; align-items: baseline;">
+                            <h1 style="margin-right: 10px;">FlashX - </h1>
+                            <h3>Out of Office Management</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex justify-content-end align-items-center user-info">
+                        @*     <span>Welcome, <strong id ="UserName"></strong></span>*@
+                        <partial name="_LoginPartial" />
+                    </div>
+             
+                </div>
+            </div>
+        </header>
+    }
+
+    <!-- Main content section (where view-specific content will be injected) -->
+    <div>
+        <partial name="_AlertPartial" />
+
+        @RenderBody() <!-- This is where the content of the page will be rendered -->
+    </div>
+
+    @if (showHeaderFooter && showPreviewHeaderFooter)
+    {
+        <!-- Footer -->
+        <footer class="footer-content">
+            <p style="margin-bottom: 0rem;">&copy; 2024 Proden Technologies. All rights reserved.</p>
+            <p style="margin-bottom: 0rem;">Version 1.0.0</p>
+        </footer>
+    }
+
+    <!-- jQuery (full version) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap 5.3.1 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Optional: Add your custom scripts -->
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/js/site.js"></script>
+
+    <!-- Quill JS (optional, if you need it) -->
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+
+ @RenderSection("Scripts", required: false)
+
+
+</body>
+</html>

@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu-container {
+            max-width: 320px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 16px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-left:5cm;
+        }
+
+        .profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+            .profile-header h6 {
+                margin: 0;
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+        #profileButton {
+            background: none;
+            border: none;
+            color: #0078d4;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: underline;
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            margin-right: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .profile-details {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+            .profile-details b {
+                font-size: 14px;
+                margin-bottom: 4px;
+            }
+
+            .profile-details label {
+                font-size: 12px;
+                color: #555;
+            }
+
+        .status-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            transition: border 0.2s;
+        }
+
+            .status-section:hover {
+                border: 1px solid #0078d4;
+            }
+
+            .status-section .status-icon {
+                display: flex;
+                align-items: center;
+                color: green;
+                font-size: 14px;
+            }
+
+                .status-section .status-icon i {
+                    margin-right: 8px;
+                }
+
+        .work-location {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            transition: border 0.2s;
+        }
+
+            .work-location:hover {
+                border: 1px solid #0078d4;
+            }
+
+            .work-location span {
+                font-size: 14px;
+            }
+
+        .textarea-container {
+            margin-top: 8px;
+            background-color: #f9f9f9;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #555;
+        }
+
+        .add-account {
+            margin-top: 16px;
+            text-align: center;
+            padding: 8px 0;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #0078d4;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-container">
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <h6 id="companyName">Proden Tech</h6>
+            <button id="profileButton">Sign out</button>
+        </div>
+
+        <!-- Profile Section -->
+        <div class="profile-section">
+            <div class="profile-pic">KR</div>
+            <div class="profile-details text-start">
+                <b id="profileName">Krishnaraj R</b>
+                <label id="profileEmail">krishnaraj@ProdenTech526.onmicrosoft.com</label>
+                <label id="showMore">View account</label>
+            </div>
+        </div>
+
+        <!-- Status Section -->
+        <div class="status-section">
+            <div class="status-icon">
+                <i class="fa fa-circle"></i>
+                <span>Available</span>
+            </div>
+            <span>&gt;</span>
+        </div>
+
+        <!-- Work Location Section -->
+        <div class="work-location">
+            <span>Set work location</span>
+            <span>&gt;</span>
+        </div>
+
+        <!-- Work Location Textarea -->
+        <div class="textarea-container">
+            IN Permission.
+        </div>
+
+        <!-- Add Another Account -->
+        <div class="add-account">Add another account</div>
+    </div>
+</body>
+</html>

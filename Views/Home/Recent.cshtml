@@ -1,0 +1,305 @@
+﻿@model outofoffice.Models.OutOfOfficeRecent
+
+@{
+    Layout = "_Layout";
+}
+
+<!-- Link to additional stylesheets -->
+<link href="~/css/formediaquery.css" rel="stylesheet" />
+<link href="~/css/site.css" rel="stylesheet" />
+
+<style>
+.dropdown {
+    width: 200px; /* Set your desired width */
+}
+.dropdown-toggle,
+.dropdown-menu {
+    width: 100%; /* Ensure both button and dropdown have the same width */
+}
+</style>
+
+<partial name="Index.cshtml" />
+<div style="display:none">@ViewBag.Recent_Value_Stored</div>
+
+<div class="container-fluid main-container">
+    <div class="row">
+        <!-- Left Column: Vacation Form -->
+        <div class="col-12 col-md-6">
+            <div class="tab-pane fade show active" id="recent" role="tabpanel" aria-labelledby="recent-tab">
+
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        List of Scheduled Jobs
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <!-- Dropdown items dynamically populated -->
+                        @if (ViewBag.DropdownItems != null && (ViewBag.DropdownItems as List<DropdownItemWithTooltip>).Any())
+                        {
+                            <div style="max-height: 200px; overflow-y: auto;">
+                                <!-- Adjust the max-height as needed -->
+                                @foreach (var item in ViewBag.DropdownItems as List<DropdownItemWithTooltip>)
+                                {
+                                    <a class="dropdown-item ListOfScheduledItems" href="javascript:void(0);"
+                                       onclick="navigateToRecent('@item.Value')"
+                                       title="@item.Tooltip">
+                                        @item.Text
+                                    </a>
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <p style="text-align: center;">No Scheduled was found</p>
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <h2>Vacation Calendar</h2>
+
+                    </div>
+                    <div class="col-6">
+                        <button type="button" style="float: right;" class="btn btn-danger"
+                                data-job-id="@Model.UAID_ID"
+                                onclick="deleteJob(this)">
+                            Cancel Request
+                        </button>
+                    </div>
+                </div>
+
+                <h5>Choose your Out of Office Start and End Date & Time:</h5>
+                <form class="bg-light-custom p-3 rounded" asp-action="responseStatus" method="post" id="vacationForm" onsubmit="return validateForm('recent')">
+                    <input type="text" id="myInput" value="recent" name="mode" style="display: none;" />
+                    <input type="text" id="getUAID" value="@Model.UAID_ID" name="UAID_ID" style="display: none;" />
+
+                    <div class="form-group">
+                        <label for="startDate">Start Date & Time:</label>
+                        <input type="datetime-local" id="startDate" name="startDate" class="form-control"
+                               value="@Model.StartDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">End Date & Time:</label>
+                        <input type="datetime-local" id="endDate" name="endDate" class="form-control"
+                               value="@Model.EndDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message:</label>
+                        <textarea id="message" name="message" rows="4" class="form-control">@Model.Message</textarea>
+
+                    </div>
+
+                    <!-- Applications Table with Logos -->
+                    <h5>Available Applications</h5>
+                    <h6>Publish my Out of Office to the following applications</h6>
+                    <!-- Add a responsive wrapper around the table -->
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-center">
+                            <thead>
+                                <tr>
+                                    <th class="appTable @(Model.Application.Split(',').Any(app => string.Equals(app.Trim(), "slack", StringComparison.OrdinalIgnoreCase)) ? "highlighted" : "")">
+                                        <img src="~/images/app_IMGs/slack.png" alt="Slack" class="icon-image">
+                                    </th>
+                                    <th class="appTable @(Model.Application.Split(',').Any(app => string.Equals(app.Trim(), "teams", StringComparison.OrdinalIgnoreCase)) ? "highlighted" : "")">
+                                        <img src="~/images/app_IMGs/teams.png" alt="Teams" class="icon-image">
+                                    </th>
+                                    <th class="appTable @(Model.Application.Split(',').Any(app => string.Equals(app.Trim(), "zoho", StringComparison.OrdinalIgnoreCase)) ? "highlighted" : "")">
+                                        <img src="~/images/app_IMGs/zoho.png" alt="Zoho" class="icon-image">
+                                    </th>
+                                    <th class="appTable @(Model.Application.Split(',').Any(app => string.Equals(app.Trim(), "outlook", StringComparison.OrdinalIgnoreCase)) ? "highlighted" : "")">
+                                        <img src="~/images/app_IMGs/outlook.png" alt="Outlook" class="icon-image">
+                                    </th>
+                                    <th class="appTable @(Model.Application.Split(',').Any(app => string.Equals(app.Trim(), "sharepoint", StringComparison.OrdinalIgnoreCase)) ? "highlighted" : "")">
+                                        <img src="~/images/app_IMGs/sharepoint.png" alt="SharePoint" class="icon-image">
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="app-status" data-app="slack">
+                                        @if (Model.AppStatus.Contains("Slack"))
+                                        {
+                                            <span>@Html.Raw(Model.AppStatus.Split("<br />")[0])</span>
+                                        }
+                                        else
+                                        {
+                                            <span>@Html.Raw(Model.AppStatus.Split("<br />")[0])</span>
+                                        }
+                                    </td>
+                                    <td class="app-status" data-app="teams">
+                                        @if (Model.AppStatus.Contains("Teams"))
+                                        {
+                                            <span>@Html.Raw(Model.AppStatus.Split("<br />")[1])</span>
+                                        }
+                                        else
+                                        {
+                                            <span>@Html.Raw(Model.AppStatus.Split("<br />")[1])</span>
+                                        }
+                                    </td>
+                                    <td class="app-status" data-app="zoho">
+                                        @if (Model.AppStatus.Contains("Zoho"))
+                                        {
+                                            <span>@Html.Raw(Model.AppStatus.Split("<br />")[2])</span>
+                                        }
+                                        else
+                                        {
+                                            <span>@Html.Raw(Model.AppStatus.Split("<br />")[2])</span>
+                                        }
+                                    </td>
+                                    <td class="app-status" data-app="outlook">
+                                        @if (Model.AppStatus.Contains("Outlook"))
+                                        {
+                                            <span>@Html.Raw(Model.AppStatus.Split("<br />")[3])</span>
+                                        }
+                                        else
+                                        {
+                                            <span>@Html.Raw(Model.AppStatus.Split("<br />")[3])</span>
+                                        }
+                                    </td>
+                                    <td class="app-status" data-app="sharepoint">
+                                        @if (Model.AppStatus.Contains("SharePoint"))
+                                        {
+                                            <span>@Html.Raw(Model.AppStatus.Split("<br />")[4])</span>
+                                        }
+                                        else
+                                        {
+                                            <span>@Html.Raw(Model.AppStatus.Split("<br />")[4])</span>
+                                        }
+                                    </td>
+                                </tr>
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <input type="hidden" id="selectedApps" name="Application" value="">
+
+                    <!-- Action Buttons -->
+                    <div class="form-group mt-3">
+                        <button type="submit" id="recentPublish" class="btn btn-primary mr-2" style="display:none">Publish</button>
+                        <button type="button" class="btn btn-primary mr-2" onclick="recentPublishValidation('recentPublish')">Publish</button>
+                        <button type="button" class="btn btn-secondary" disabled>Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Right Column: Preview Section -->
+        <div class="col-12 col-md-6">
+            <h2 class="text-center">Preview</h2>
+            <div class="preview-section text-center">
+                <h3 id="previewDesc" class="preview-message">Your Out of Office message will be displayed here</h3>
+                <img id="previewImg" src="" alt="Preview Image" class="previewApp">
+                <div id="app" class="container"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal Structure -->
+<div class="modal fade" id="myDynamicModal" tabindex="-1" aria-labelledby="myDynamicModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myDynamicModalLabel">Default Title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Default content goes here.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Save Changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="spinner-overlay" class="loader loader-hidden"></div>
+
+<script>
+    // Wait for the page to load
+    window.onload = function() {
+
+        defaultFunction();
+
+
+
+        // Find the first highlighted app in the table headers
+        var highlightedApp = document.querySelector('th.highlighted img');
+
+        // Set the preview image based on the first highlighted app
+        var previewImg = document.getElementById('previewImg');
+        var previewDesc = document.getElementById('previewDesc');
+
+        if (highlightedApp) {
+            // Get the alt text of the highlighted app
+            var appAlt = highlightedApp.alt.toLowerCase();
+
+            switch (appAlt) {
+                 case 'slack':
+            previewDesc.innerHTML = "Your Out of Office message will be displayed in Slack.";
+            previewImg.src = "/images/preview_IMGs/slackpreview.png";  // Corrected path
+            previewImg.alt = "Slack Preview Image";
+            break;
+        case 'teams':
+            previewDesc.innerHTML = "Your Out of Office message will be displayed in Teams.";
+            previewImg.src = "/images/preview_IMGs/teamspreview.png";  // Corrected path
+            previewImg.alt = "Teams Preview Image";
+            break;
+        case 'zoho':
+            previewDesc.innerHTML = "Time Off request message will be displayed in Zoho.";
+            previewImg.src = "/images/preview_IMGs/zohopreview.png";  // Corrected path
+            previewImg.alt = "Zoho Preview Image";
+            break;
+        case 'outlook':
+            previewDesc.innerHTML = "Your Out of Office message will be displayed in Outlook.";
+            previewImg.src = "/images/preview_IMGs/outlookpreview.png";  // Corrected path
+            previewImg.alt = "Outlook Preview Image";
+            break;
+        case 'sharepoint':
+            previewDesc.innerHTML = "Your Out of Office message will be displayed in SharePoint.";
+            previewImg.src = "/images/preview_IMGs/sharePointpreview.png";  // Corrected path
+            previewImg.alt = "SharePoint Preview Image";
+            break;
+        default:
+            previewDesc.innerHTML = "Your Out of Office message will be displayed here.";
+            previewImg.src = "/images/preview_IMGs/placeholder.png";  // Default placeholder
+            previewImg.alt = "Preview Image";
+            break;
+            }
+        }
+    }
+
+        // Define the default function
+    function defaultFunction() {
+        var getHeadtab = document.getElementById('recent-tab');
+
+        // Apply both styles using cssText
+        getHeadtab.style.cssText = 'background-color: #d55401; color: white; border-radius: 10px;';
+    }
+
+    function getRecentValues(){
+    
+        var recentValueStored = @Html.Raw(ViewBag.Recent_Value_Stored ?? "null");
+        if (recentValueStored) {
+            console.log("Recent Value Stored:", recentValueStored);
+        } else {
+            console.log("Recent Value Stored is null or undefined");
+            recentValueStored = "";
+        }
+        return recentValueStored
+    }
+
+
+    function navigateToRecent(value) {
+            // Build the URL with the selected value as a query string parameter
+            var url = '@Url.Action("Recent", "Home")' + '?value=' + value;
+
+            // Redirect the browser to the new URL
+            window.location.href = url;
+    }
+
+</script>
